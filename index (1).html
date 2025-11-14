@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vườn Hoa Tri Ân Thầy Cô – ĐH Hải Phòng 🌸</title>
+
+<style>
+  body {
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(to top right, #ffe4ec, #fff);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  h1 {
+    color: #d6336c; 
+    margin-top: 30px;
+    text-shadow: 0 0 6px rgba(214,51,108,0.2);
+  }
+
+  p {
+    margin: 10px auto 20px auto;
+    font-size: 16px;
+    color: #555;
+  }
+
+  #garden {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 30px auto;
+    gap: 15px; 
+    max-width: 900px;
+  }
+
+  .flower {
+    width: 75px;
+    height: 75px;
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    transition: transform 0.2s;
+  }
+
+  .flower:hover {
+      transform: scale(1.1);
+  }
+
+  .heart {
+    position: fixed;
+    bottom: 60px;
+    font-size: 22px;
+    color: #ef4444;
+    animation: floatUp 2.5s ease-out forwards;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    50% { transform: translateY(-60px) scale(1.4); opacity: 0.9; }
+    100% { transform: translateY(-140px) scale(0.8); opacity: 0; }
+  }
+
+  #plantBtn {
+    background: #f06292;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px; 
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+    margin: 10px;
+  }
+
+  #plantBtn:hover {
+      background: #e91e63;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  }
+
+  #message {
+    margin: 20px auto;
+    padding: 15px;
+    max-width: 80%;
+    font-size: 17px;
+    color: #880e4f; 
+    min-height: 100px; 
+    /* KHẮC PHỤC LỖI XUỐNG DÒNG */
+    white-space: pre-wrap; 
+    border-left: 5px solid #f06292;
+    text-align: left;
+    line-height: 1.6;
+  }
+
+  /* Style cho cánh hoa rơi */
+  .petal {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🌸 Vườn Hoa Tri Ân – Đại học Hải Phòng 🌸</h1>
+<p>Nhấn nút để gửi lời tri ân đến những người thầy, người cô đã dẫn đường cho chúng ta 💖</p>
+
+<button id="plantBtn">🌷 Trồng hoa Tri Ân</button>
+
+<div id="message"></div>
+<div id="garden"></div>
+
+<script>
+const garden = document.getElementById('garden');
+const plantBtn = document.getElementById('plantBtn');
+const message = document.getElementById('message');
+
+const flowers = ['🌸','🌼','🌹','🌻','🌷','💐'];
+
+const messages = [
+`“Người lái đò đưa em tới tương lai
+Mặc sóng nước cứ miệt mài cuồng vẫy
+Tâm ngời sáng đánh thức người đứng dậy
+Gieo hạt mầm, tay cấy những ước mơ…”
+
+🌼 Tri ân thầy cô giáo Trường Đại học Hải Phòng 🌼`,
+
+`“Muốn qua sông phải lụy đò
+Đường đời muôn bước cậy nhờ người đưa…
+Tháng năm dầu dãi nắng mưa
+Con đò trí thức thầy đưa bao người…”
+
+🌸 Xin kính gửi lời biết ơn sâu sắc tới thầy cô trường ĐH Hải Phòng 🌸`,
+
+`“Công lao dạy dỗ thành người đó
+Nghĩa nặng ân sâu tạc dạ trò
+Gắng học cho chăm đừng ngại khó
+Ơn thầy sáng mãi khắc tâm cho.”
+
+💖 Kính tri ân các thầy cô trường Đại học Hải Phòng 💖`,
+
+`“Lặng nhìn năm tháng êm trôi
+Núi cao nhạn biếc lượn quanh bầu trời
+Công cha nghĩa mẹ sinh thành
+Ơn thầy đã dạy vang danh cuộc đời”
+
+🌷 Xin gửi ngàn lời biết ơn tới thầy cô ĐH Hải Phòng 🌷`,
+
+`“Hạnh phúc vinh quang bởi các thầy
+Vì đời sự nghiệp ấy trồng cây
+Cho dù sóng gió không hề nản
+Cám dỗ dòng đời vẫn cứ say.”
+
+🌺 Biết ơn thầy cô – những người gieo hạt ước mơ tại trường Đại học Hải Phòng 🌺`
+];
+
+// 💻 HIỆU ỨNG GÕ CHỮ ĐÃ SỬA LỖI XUỐNG DÒNG
+function typeWriter(text, element, speed = 30) {
+  element.innerHTML = ""; 
+  let i = 0;
+
+  function typing() {
+    if (i < text.length) {
+      const char = text.charAt(i);
+
+      if (char === '\n') {
+        // Chèn thẻ <br> để xuống dòng
+        element.innerHTML += '<br>';
+      } else {
+        // Thêm ký tự vào nội dung
+        element.innerHTML += char; 
+      }
+      
+      i++;
+      setTimeout(typing, speed);
+    }
+  }
+  typing();
+}
+
+
+// 💖 Hiệu ứng trái tim bay
+function createHeart() {
+  for (let i = 0; i < 5; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = ['💖','💗','💓','💞'][Math.floor(Math.random()*4)];
+    heart.style.left = (Math.random() * (window.innerWidth - 60) + 30) + 'px';
+    heart.style.fontSize = (16 + Math.random()*12) + 'px';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 3000);
+  }
+}
+
+// 🌸 Trồng hoa + gõ chữ + trái tim
+plantBtn.addEventListener('click', ()=>{
+  const flower = document.createElement('div');
+  flower.className = 'flower';
+  flower.textContent = flowers[Math.floor(Math.random()*flowers.length)];
+  garden.appendChild(flower);
+
+  const randomMsg = messages[Math.floor(Math.random()*messages.length)];
+  typeWriter(randomMsg, message, 30); 
+
+  createHeart();
+});
+
+// 🌸 Hoa đào rơi
+function createPetal() {
+  const petal = document.createElement('div');
+  petal.className = 'petal';
+  petal.innerHTML = "🌸"; 
+  petal.style.left = Math.random() * window.innerWidth + "px";
+petal.style.top = "-20px";
+  petal.style.fontSize = (16 + Math.random()*10) + "px";
+
+  const fallDuration = 4 + Math.random() * 4; 
+  petal.style.animation = `fall ${fallDuration}s linear forwards`;
+  document.body.appendChild(petal);
+
+  setTimeout(() => petal.remove(), fallDuration * 1000);
+}
+
+setInterval(createPetal, 300);
+
+</script>
+
+</body>
+</html>
